@@ -1,13 +1,20 @@
 from django.shortcuts import render
 
 
-def index(request):
+def save_email_if_sent(request):
+    email = request.GET.get('EMAIL1')
+    if not email:
+        return
+    # save email if valid else pass
 
+
+def index(request):
+    save_email_if_sent(request)
     return render(request, 'index.html')
 
 
 def boxes(request):
-
+    save_email_if_sent(request)
     return render(request, 'boxes.html')
 
 
