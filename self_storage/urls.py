@@ -6,11 +6,10 @@ from store import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index),
-    path('boxes/', views.boxes),
-    path('my_rent/', views.my_rent),
-    path('my_rent_empty/', views.my_rent_empty),
-    path('faq/', views.faq),
+    path('', views.index, name='main'),
+    path('boxes/', views.boxes, name='boxes'),
+    path('my_rent/', views.my_rent, name='my_rent'),
+    path('faq/', views.faq, name='faq'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
