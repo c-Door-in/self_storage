@@ -13,12 +13,12 @@ def boxes(request):
 
 def my_rent(request):
 
-    return render(request, 'my_rent.html')
+    return render(request, 'my-rent.html')
 
 
 def my_rent_empty(request):
 
-    return render(request, 'my_rent_empty.html')
+    return render(request, 'my-rent-empty.html')
 
 
 def faq(request):
