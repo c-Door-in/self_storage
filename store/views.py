@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect, render
 
 
 def save_email_if_sent(request):
@@ -19,6 +20,7 @@ def boxes(request):
     return render(request, 'boxes.html')
 
 
+@login_required
 def my_rent(request):
     user_rents = [1]
     if not user_rents:
@@ -47,10 +49,12 @@ def faq(request):
     return render(request, 'faq.html')
 
 
+@login_required
 def payment(request):
     return render(request, 'index.html')
 
 
+@login_required
 def log_out(request):
     logout(request)
     return redirect(index)
