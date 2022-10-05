@@ -44,8 +44,12 @@ def my_rent(request):
 
 
 def faq(request):
-
     return render(request, 'faq.html')
+
+
+def payment(request):
+    return render(request, 'index.html')
+
 
 def log_out(request):
     logout(request)
