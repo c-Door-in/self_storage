@@ -25,11 +25,18 @@ def my_rent(request):
         return render(request, 'my-rent-empty.html')
     # context = {
     #     'containers': [
-    #         'location': ,
-    #         'container_num': ,
-    #         'started_at': DD.MM.YYYY,
-    #         'finished_at': DD.MM.YYYY,
-    #         'is_expire': bool,
+    #         {
+    #             'uuid': ,
+    #             'location': ,
+    #             'container_num': ,
+    #             'started_at': DD.MM.YYYY,
+    #             'finished_at': DD.MM.YYYY,
+    #             'is_expire': bool,
+    #         },
+    #         {
+    #             ...
+    #         }
+            
     #     ]
     # }
     return render(request, 'my-rent.html')
