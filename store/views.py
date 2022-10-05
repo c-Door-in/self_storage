@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import logout
 
 
 def save_email_if_sent(request):
@@ -19,15 +20,26 @@ def boxes(request):
 
 
 def my_rent(request):
-    user_rents = []
+    user_rents = [1]
     if not user_rents:
         return render(request, 'my-rent-empty.html')
-    
+    # context = {
+    #     'containers': [
+    #         'location': ,
+    #         'container_num': ,
+    #         'started_at': DD.MM.YYYY,
+    #         'finished_at': DD.MM.YYYY,
+    #         'is_expire': bool,
+    #     ]
+    # }
     return render(request, 'my-rent.html')
-    
-    
+
 
 
 def faq(request):
 
     return render(request, 'faq.html')
+
+def log_out(request):
+    logout(request)
+    return redirect(index)
