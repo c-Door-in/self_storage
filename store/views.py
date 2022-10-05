@@ -26,6 +26,13 @@ def my_rent(request):
     if not user_rents:
         return render(request, 'my-rent-empty.html')
     # context = {
+        # 'user': {
+        #     'email':
+        #     'phone':
+        #     'password':
+        #     'name':
+        #     'photo':
+        # }
     #     'containers': [
     #         {
     #             'uuid': ,
