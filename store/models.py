@@ -24,7 +24,7 @@ class Storage(models.Model):
     location_street_number = models.CharField(default='15', max_length=10, verbose_name='Идентификатор дома')
     store_temperature = models.DecimalField(verbose_name='Температура на складе', decimal_places=2, max_digits=5)
     ceiling_height = models.DecimalField(verbose_name='Высота потолка', decimal_places=2, max_digits=5)
-    payment_per_month = models.DecimalField(verbose_name='Оплата за месяц', decimal_places=2, max_digits=10)
+    payment_per_month = models.IntegerField(verbose_name='Оплата за месяц')
     photo = models.ImageField(blank=True, verbose_name='Фото')
     note = models.CharField(null=True, blank=True, max_length=35, verbose_name='Заметка')
     total_boxes = models.IntegerField(null=True)
