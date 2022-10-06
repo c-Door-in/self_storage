@@ -29,7 +29,6 @@ class Storage(models.Model):
     note = models.CharField(null=True, blank=True, max_length=35, verbose_name='Заметка')
     total_boxes = models.IntegerField(null=True)
 
-
     def __str__(self):
         return self.location_city
 
@@ -38,7 +37,7 @@ class Box(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='Клиент', blank=True, null=True)
     storage = models.ForeignKey(Storage, on_delete=models.CASCADE, verbose_name='Склад')
     number = models.CharField(max_length=20, verbose_name='Номер в базе данных')
-    is_use = models.BooleanField(default=False, verbose_name='Занятость бокса')
+    in_use = models.BooleanField(default=False, verbose_name='Занятость бокса')
     rental_start_time = models.DateTimeField(null=True, verbose_name='Время начала аренды', blank=True)
     rental_end_time = models.DateTimeField(null=True, verbose_name='Время окончания аренды', blank=True)
     level = models.IntegerField(verbose_name='Этаж')
