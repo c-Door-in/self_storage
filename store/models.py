@@ -27,6 +27,8 @@ class Storage(models.Model):
     payment_per_month = models.DecimalField(verbose_name='Оплата за месяц', decimal_places=2, max_digits=10)
     photo = models.ImageField(blank=True, verbose_name='Фото')
     note = models.CharField(null=True, blank=True, max_length=35, verbose_name='Заметка')
+    total_boxes = models.IntegerField(null=True)
+
 
     def __str__(self):
         return self.location_city
