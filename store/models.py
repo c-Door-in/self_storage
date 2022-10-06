@@ -19,7 +19,6 @@ class Customer(models.Model):
 
 
 class Storage(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     location_city = models.CharField(default='Москва', max_length=35, verbose_name='Город')
     location_street_name = models.CharField(default='Тверская', max_length=35, verbose_name='Улица')
     location_street_number = models.CharField(default='15', max_length=10, verbose_name='Идентификатор дома')
@@ -34,7 +33,7 @@ class Storage(models.Model):
 
 
 class Box(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='Клиент')
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='Клиент', blank=True)
     storage = models.ForeignKey(Storage, on_delete=models.CASCADE, verbose_name='Склад')
     number = models.CharField(max_length=20, verbose_name='Номер в базе данных')
     is_use = models.BooleanField(default=False, verbose_name='Занятость склада')
