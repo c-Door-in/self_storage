@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Оплата принята{% endblock %}
+{% block header %}{% endblock %}
+{% block content %}
+<main style="margin-top: calc(2rem + 85px);">
+    <section>
+        <div class="container">
+            <h1>Спасибо за бронирование, оплата принята</h1>
+            <p>Для дальнейшей работы с сайтом, перейдите на  <a href="{% url 'mainpage' %}">главную страницу</a>.</p>
+        </div>
+    </section>
+</main>
+{% endblock %}
+{% block footer %}{% endblock %}
