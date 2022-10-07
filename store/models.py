@@ -11,7 +11,7 @@ class Application(models.Model):
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    photo = models.ImageField(verbose_name='Фото пользователя')
+    photo = models.ImageField(verbose_name='Фото пользователя', null=True, blank=True)
     phone_number = models.CharField(null=True, blank=True, max_length=10, verbose_name='Телефон пользователя')
 
     def __str__(self):
@@ -35,7 +35,7 @@ class Storage(models.Model):
 
 
 class Box(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='Клиент', blank=True, null=True)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='Клиент', blank=True, null=True, related_name='rented_boxes')
     storage = models.ForeignKey(Storage, on_delete=models.CASCADE, verbose_name='Склад', related_name='boxes')
     number = models.CharField(max_length=20, verbose_name='Номер в базе данных')
     in_use = models.BooleanField(default=False, verbose_name='Занятость бокса')
