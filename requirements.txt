@@ -3,3 +3,4 @@ environs==9.5.0
 flake8==5.0.4
 django-allauth==0.51.0
 Pillow==9.2.0
+stripe==4.2.0
