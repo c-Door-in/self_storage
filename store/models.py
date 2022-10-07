@@ -35,8 +35,8 @@ class Storage(models.Model):
 
 
 class Box(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='Клиент', blank=True, null=True, related_name='boxes')
-    storage = models.ForeignKey(Storage, on_delete=models.CASCADE, verbose_name='Склад')
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='Клиент', blank=True, null=True)
+    storage = models.ForeignKey(Storage, on_delete=models.CASCADE, verbose_name='Склад', related_name='boxes')
     number = models.CharField(max_length=20, verbose_name='Номер в базе данных')
     in_use = models.BooleanField(default=False, verbose_name='Занятость бокса')
     rental_start_time = models.DateTimeField(null=True, verbose_name='Время начала аренды', blank=True)
