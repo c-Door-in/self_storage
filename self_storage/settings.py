@@ -25,6 +25,7 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['127.0.0.1', ])
 # Application definition
 
 INSTALLED_APPS = [
+    'payment.apps.PaymentConfig',
     'store',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -54,7 +55,9 @@ ROOT_URLCONF = 'self_storage.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -159,3 +162,5 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+STRIPE_API_KEY = env.str('STRIPE_API_KEY')

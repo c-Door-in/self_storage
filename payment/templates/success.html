@@ -1,15 +1,17 @@
-{% extends "base.html" %}
+{% extends 'base_main.html' %}
+{% load static %}
 
-{% block title %}Оплата принята{% endblock %}
-{% block header %}{% endblock %}
+
+{% block title %}Payment cancelled{%endblock%}
+
 {% block content %}
-<main style="margin-top: calc(2rem + 85px);">
-    <section>
-        <div class="container">
-            <h1>Спасибо за бронирование, оплата принята</h1>
-            <p>Для дальнейшей работы с сайтом, перейдите на  <a href="{% url 'mainpage' %}">главную страницу</a>.</p>
-        </div>
-    </section>
+<main class="container mt-header">
+	<article class="row">
+		<div class="col-12 col-lg-6 mb-3 mb-lg-0">
+			<h4 class="fw-lighter SelfStorage_grey mb-5">Оплата прошла успешно!</h4>
+            <a href="{% url 'my_rent' %}" class="btn border-8 py-3 px-5 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange">Вернуться в личный кабинет</a>
+		</div>
+		<div class="col-12 col-lg-6 SelfStorage__img"></div>
+	</article>
 </main>
-{% endblock %}
-{% block footer %}{% endblock %}
+{%endblock%}

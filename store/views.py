@@ -57,11 +57,6 @@ def faq(request):
 
 
 @login_required
-def payment(request):
-    return render(request, 'index.html')
-
-
-@login_required
 def log_out(request):
     logout(request)
     return redirect(index)
