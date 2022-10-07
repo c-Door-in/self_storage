@@ -35,7 +35,7 @@ class Storage(models.Model):
 
 
 class Box(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='Клиент', blank=True, null=True)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='Клиент', blank=True, null=True, related_name='boxes')
     storage = models.ForeignKey(Storage, on_delete=models.CASCADE, verbose_name='Склад')
     number = models.CharField(max_length=20, verbose_name='Номер в базе данных')
     in_use = models.BooleanField(default=False, verbose_name='Занятость бокса')
