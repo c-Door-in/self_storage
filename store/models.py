@@ -10,7 +10,7 @@ class Application(models.Model):
 
 
 class Customer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, related_name='customer')
     photo = models.ImageField(verbose_name='Фото пользователя', null=True, blank=True)
     phone_number = models.CharField(null=True, blank=True, max_length=10, verbose_name='Телефон пользователя')
 
