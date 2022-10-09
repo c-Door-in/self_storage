@@ -20,7 +20,46 @@ def index(request):
 
 def boxes(request):
     save_email_if_sent(request)
-    return render(request, 'boxes.html')
+    storages = Storage.objects.all()
+    storages_data = []
+    boxes_data = []
+
+    for storage in storages:
+        rented_boxes = len(storage.boxes.filter(in_use=True))
+        storage_boxes = storage.boxes.all()
+        free_boxes = storage.total_boxes - rented_boxes
+
+        for box in storage_boxes:
+            boxes_data.append(
+                {
+                    'number': box.number,
+                    'level': box.level,
+                    'square': box.square,
+                    'volume': box.volume,
+                    'price': box.price,
+                    'storage_city': box.storage.location_city
+                }
+            )
+
+        storages_data.append(
+            {
+                'location_city': storage.location_city,
+                'location_street_name': storage.location_street_name,
+                'location_street_number': storage.location_street_number,
+                'free_boxes': free_boxes,
+                'total_boxes': storage.total_boxes,
+                'payment_per_month': storage.payment_per_month,
+                'note': storage.note,
+                'temperature': storage.store_temperature,
+                'ceiling_height': storage.ceiling_height,
+                'small_image_url': storage.small_photo.url,
+                'large_image_url': storage.large_photo.url,
+                'id': storage.id,
+                'boxes': boxes_data
+            }
+        )
+
+    return render(request, 'boxes.html', context={'storages': storages_data})
 
 
 @login_required
