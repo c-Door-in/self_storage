@@ -44,7 +44,7 @@ class Box(models.Model):
     level = models.IntegerField(verbose_name='Этаж')
     square = models.IntegerField(verbose_name='Площадь', null=True)
     volume = models.IntegerField(verbose_name='Объём', null=True)
-    price = models.DecimalField(verbose_name='Цена', decimal_places=4, max_digits=10)
+    price = models.IntegerField(verbose_name='Цена')
 
     def __str__(self):
         return f'Бокс {self.number} склада {self.storage.location_city}'

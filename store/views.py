@@ -43,7 +43,7 @@ def boxes(request):
         free_boxes = storage.boxes.filter(in_use=False)
         context['storages'][storage.pk] = {
             'info': storage,
-            'boxes': free_boxes,
+            'free_boxes': free_boxes,
             'boxes_vol_to_3': free_boxes.filter(volume__lt=3),
             'boxes_vol_to_10': free_boxes.filter(volume__lt=10),
             'boxes_vol_from_10': free_boxes.filter(volume__gte=10)
