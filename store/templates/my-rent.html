@@ -60,9 +60,10 @@
 					<h1 class="fw-bold SelfStorage_green mb-5">Добрый день, {{ first_name }}</h1>
 					<a href="#" class="SelfStorage_orange">История аренды</a>
 					{% for box in user_boxes %}
-                    {% if box.warning %}
-                        <h4 class="SelfStorage_grey my-3">{{ box.warning }}</h4>
-                        {% endif %}
+						{% if box.warning %}
+						<h4 class="SelfStorage_grey my-3">Срок Вашей аренды подходит к концу :( </h4>
+						<h4 class="SelfStorage_grey my-3">Вы можете продлить аренду или забрать вещи до {{ box.rental_end_time|date:'d M Y' }} включительно.</h4>
+						{% endif %}
 					<div class="mb-5">
 						<h4 class="SelfStorage_green">Мой склад №{{ box.storage_number }}</h4>
 						<h4>{{ box.storage_location_city }}, ул. {{ box.storage_location_street_name }}, д. {{ box.storage_location_street_number }}</h4>

@@ -66,9 +66,7 @@ def my_rent(request):
         time_now = datetime.datetime.now(pytz.timezone(timezone))
         rental_end_time = box.rental_end_time
         time_left = rental_end_time - time_now
-        warning = None
-        if time_left.days <= 5:
-            warning = f'Срок Вашей аренды подходит к концу :( \n Вы можете продлить аренду или забрать вещи до {rental_end_time} включительно.'
+        warning = True if time_left.days <= 5 else False
 
         storage = box.storage
         user_boxes_data.append(
