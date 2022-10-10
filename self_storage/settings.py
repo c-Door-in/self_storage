@@ -25,6 +25,7 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['127.0.0.1', ])
 # Application definition
 
 INSTALLED_APPS = [
+    'authorization',
     'payment.apps.PaymentConfig',
     'store',
     'django.contrib.admin',
@@ -138,7 +139,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend'
+    'allauth.account.auth_backends.AuthenticationBackend',
+    'authorization.auth.EmailBackend'
 ]
 
 SITE_ID = 1
