@@ -6,6 +6,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
 from django.template.defaulttags import register
+from django.contrib.auth.decorators import login_required
 
 from store.models import Customer
 
@@ -60,3 +61,34 @@ def password_recovery(request):
             return render(request, 'password_recovery', {'errors': {'password_reset_email': 'Электронная почта не найдена'}})
         
     return render(request, 'sign_in.html')
+
+
+@login_required(login_url='sign_in')
+def change_password(request):
+    errors = dict()
+    if request.method == 'POST':
+        
+        print(request.user)
+        user = request.user
+        if user.check_password(request.POST['old_password']):
+            if request.POST['new_password'] != request.POST['new_password_confirm']:
+                errors['password_confirm'] = 'Пароли не совпадают'
+            try:
+                validate_password(request.POST['new_password'])
+            except ValidationError:
+                errors['password'] = dedent(
+                    '''
+                    Некорректный пароль.
+                    Пароль должен быть:
+                    длиной не менее 8-ми символов;
+                    состоять из цифр и букв (как минимум одна заглавная);
+                    быть сложным (не использовать qwerty и тому подобные комбинации).'''
+                )
+            if not errors:
+                user.set_password(request.POST['new_password'])
+                user.save()
+                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+                return redirect('my_rent')
+        else:
+            errors['incorrect_password'] = 'Неправильный пароль'
+    return render(request, 'change_password.html', {'errors': errors})

@@ -18,5 +18,6 @@ urlpatterns = [
         name="sign_in"
     ),
     path('register/', views.register, name='sign_up'),
-    path('password_reset', views.password_recovery, name='password_reset')
+    path('password_reset', views.password_recovery, name='password_reset'),
+    path('change_password/', views.change_password, name='change_password'),
 ]
