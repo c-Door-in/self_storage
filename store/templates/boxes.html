@@ -91,7 +91,7 @@
 						<h6 class="text-center">{{ storage.info.location_street_name }}, {{ storage.info.location_street_number }}</h6>
 					</div>
 					<div class="col-12 col-md-4 col-lg-3 d-flex flex-column justify-content-center">
-						<h4 class="text-center">{{ storage.boxes|length }}  из {{ storage.info.boxes.all|length }}</h4>
+						<h4 class="text-center">{{ storage.free_boxes|length }}  из {{ storage.info.boxes.all|length }}</h4>
 						<h6 class="text-center">Боксов свободно</h6>
 					</div>
 					<div class="col-12 col-md-4 col-lg-3 d-flex flex-column justify-content-center">
@@ -164,7 +164,7 @@
 							<div class="col-6 d-flex flex-column align-items-center align-items-lg-start">
 								<span class="fs_30 fw-bold SelfStorage_orange">{{ storage.info.store_temperature }} °С</span>
 								<span class="SelfStorage_grey mb-3">Температура на складе</span>
-								<span class="fs_30 fw-bold SelfStorage_orange">{{ storage.boxes|length }}  из {{ storage.info.boxes.all|length }}</span>
+								<span class="fs_30 fw-bold SelfStorage_orange">{{ storage.free_boxes|length }}  из {{ storage.info.boxes.all|length }}</span>
 								<span class="SelfStorage_grey mb-3">Боксов свободно</span>
 							</div>
 							<div class="col-6 d-flex flex-column align-items-center align-items-lg-start">
@@ -215,7 +215,7 @@
 				</ul>
 				<div class="tab-content" id="pills-tabContent-{{ storage.info.pk }}">
 					<div class="tab-pane fade{% if forloop.first %} show active{% endif %}" id="pills-all-{{ storage.info.pk }}" role="tabpanel" aria-labelledby="pills-all-tab-{{ storage.info.pk }}">
-						{% for box in storage.boxes %}		
+						{% for box in storage.free_boxes %}		
 							<span class="row text-decoration-none py-3 px-4 mt-5 SelfStorage__boxlink">
 								<div class="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
 									<span class="SelfStorage_green fs_24 me-2">{{ box.level }} эт.</span><span class="fs_24">{{ box.number }}</span>
@@ -269,7 +269,7 @@
 						{% endfor %}
 					</div>
 					<div class="tab-pane fade" id="pills-from10-{{ storage.info.pk }}" role="tabpanel" aria-labelledby="pills-from10-tab-{{ storage.info.pk }}">
-						{% for box in boxes_vol_from_10 %}
+						{% for box in storage.boxes_vol_from_10 %}
 							<span class="row text-decoration-none py-3 px-4 mt-5 SelfStorage__boxlink">
 								<div class="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
 									<span class="SelfStorage_green fs_24 me-2">{{ box.level }} эт.</span><span class="fs_24">{{ box.number }}</span>
