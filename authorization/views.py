@@ -1,15 +1,14 @@
 from textwrap import dedent
 
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
 from django.template.defaulttags import register
-from django.contrib.auth.decorators import login_required
-
 from store.models import Customer
-
+from django.db.models import Q
 
 @register.filter
 def get_item(dictionary, key):
@@ -53,14 +52,18 @@ def register(request):
 
     return render(request, 'sign_up.html')
 
-def password_recovery(request):
+
+def password_reset(request):
     if request.method == 'POST':
         try:
-            user = User.objects.get(email=request.POST["password_reset_email"])
+            user = User.objects.get(
+                Q(email=request.POST["email_or_username"]) | \
+                Q(username=request.POST["email_or_username"])
+            )
         except User.DoesNotExist:
-            return render(request, 'password_recovery', {'errors': {'password_reset_email': 'Электронная почта не найдена'}})
+            return render(request, 'password_reset.html', {'errors': {'email_or_username': 'Пользователь не найден'}})
         
-    return render(request, 'sign_in.html')
+    return render(request, 'password_reset.html')
 
 
 @login_required(login_url='sign_in')
