@@ -43,7 +43,7 @@ class Box(models.Model):
     rental_end_time = models.DateTimeField(null=True, verbose_name='Время окончания аренды', blank=True)
     level = models.IntegerField(verbose_name='Этаж')
     square = models.IntegerField(verbose_name='Площадь', null=True)
-    volume = models.CharField(verbose_name='Объём', max_length=15, null=True)
+    volume = models.IntegerField(verbose_name='Объём', null=True)
     price = models.DecimalField(verbose_name='Цена', decimal_places=4, max_digits=10)
 
     def __str__(self):
