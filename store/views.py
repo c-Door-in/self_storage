@@ -20,46 +20,20 @@ def index(request):
 
 def boxes(request):
     save_email_if_sent(request)
-    storages = Storage.objects.all()
-    storages_data = []
-    boxes_data = []
-
+    storages = Storage.objects.prefetch_related('boxes')
+    
+    context = {'storages': {}}
     for storage in storages:
-        rented_boxes = len(storage.boxes.filter(in_use=True))
-        storage_boxes = storage.boxes.all()
-        free_boxes = storage.total_boxes - rented_boxes
+        free_boxes = storage.boxes.filter(in_use=False)
+        context['storages'][storage.pk] = {
+            'info': storage,
+            'boxes': free_boxes,
+            'boxes_vol_to_3': free_boxes.filter(volume__lt=3),
+            'boxes_vol_to_10': free_boxes.filter(volume__lt=10),
+            'boxes_vol_from_10': free_boxes.filter(volume__gte=10)
+        }
 
-        for box in storage_boxes:
-            boxes_data.append(
-                {
-                    'number': box.number,
-                    'level': box.level,
-                    'square': box.square,
-                    'volume': box.volume,
-                    'price': box.price,
-                    'storage_city': box.storage.location_city
-                }
-            )
-
-        storages_data.append(
-            {
-                'location_city': storage.location_city,
-                'location_street_name': storage.location_street_name,
-                'location_street_number': storage.location_street_number,
-                'free_boxes': free_boxes,
-                'total_boxes': storage.total_boxes,
-                'payment_per_month': storage.payment_per_month,
-                'note': storage.note,
-                'temperature': storage.store_temperature,
-                'ceiling_height': storage.ceiling_height,
-                'small_image_url': storage.small_photo.url,
-                'large_image_url': storage.large_photo.url,
-                'id': storage.id,
-                'boxes': boxes_data
-            }
-        )
-
-    return render(request, 'boxes.html', context={'storages': storages_data})
+    return render(request, 'boxes.html', context=context)
 
 
 @login_required
@@ -74,7 +48,7 @@ def my_rent(request):
 
     for box in user_boxes:
         time_now = datetime.datetime.now(pytz.timezone(timezone))
-        rental_end_time = (box.rental_end_time).astimezone(pytz.timezone(timezone))
+        rental_end_time = box.rental_end_time
         time_left = rental_end_time - time_now
         warning = None
         if time_left.days <= 5:
