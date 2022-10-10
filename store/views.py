@@ -61,6 +61,7 @@ def my_rent(request):
                 'storage_location_city': storage.location_city,
                 'storage_location_street_name': storage.location_street_name,
                 'storage_location_street_number': storage.location_street_number,
+                'id': box.id,
                 'number': box.number,
                 'rental_start_time': box.rental_start_time,
                 'rental_end_time': box.rental_end_time,
