@@ -58,7 +58,26 @@ def my_rent(request):
     username = request.user
     user = User.objects.get(username=username)
     customer = user.customer
+    
+    user_data = {
+        'username': user.username,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'image_url': customer.photo.url if customer.photo else 'static/no_foto.png',
+        'password': user.password,
+        'email': user.email,
+        'phone_number': customer.phone_number,
+    }
+    
     user_boxes = customer.rented_boxes.all()
+
+
+    if not user_boxes:
+        note = 'У вас еще нет аренды :( ' \
+               'Но вы можете арендовать свой первый бокс  по  привлекательной цене прямо сейчас'
+        user_data.update(note=note)
+        return render(request, 'my-rent-empty.html', context=user_data)
+
     user_boxes_data = []
     timezone = 'Europe/Moscow'
 
@@ -83,25 +102,12 @@ def my_rent(request):
             }
         )
 
-    user_data = {
-        'username': user.username,
-        'first_name': user.first_name,
-        'last_name': user.last_name,
-        'image_url': customer.photo.url if customer.photo else 'static/no_foto.png',
-        'password': user.password,
-        'email': user.email,
-        'phone_number': customer.phone_number,
-    }
+    
 
-    if user_boxes:
-        user_data.update(user_boxes=user_boxes_data)
-        return render(request, 'my-rent.html', context=user_data)
+    user_data.update(user_boxes=user_boxes_data)
+    return render(request, 'my-rent.html', context=user_data)
 
-    else:
-        note = 'У вас еще нет аренды :( ' \
-               'Но вы можете арендовать свой первый бокс  по  привлекательной цене прямо сейчас'
-        user_data.update(note=note)
-        return render(request, 'my-rent-empty.html', context=user_data)
+        
 
 
 def faq(request):
