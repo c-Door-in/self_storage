@@ -2,6 +2,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from store.models import Storage, Customer, Application, Box, User
+from email_sender.email_sender import send_email, get_qr_code
 
 import datetime
 import pytz
@@ -107,8 +108,6 @@ def my_rent(request):
     user_data.update(user_boxes=user_boxes_data)
     return render(request, 'my-rent.html', context=user_data)
 
-        
-
 
 def faq(request):
     return render(request, 'faq.html')
@@ -139,3 +138,17 @@ def payment(request):
 def log_out(request):
     logout(request)
     return redirect(index)
+
+
+def send_qr(request, box_id):
+    user = request.user
+    user_email = user.email
+    box = Box.objects.get(id=box_id)
+    box_number = box.number
+    storage = box.storage
+    qr_code = get_qr_code(storage.id, box_number, user.id)
+    message = 'Здравствуйте, благодарим за оформление заказа! Ваш qr-код с информацией находится ниже'
+
+    send_email(user_email, 'Оплата бокса', message, qr_code)
+
+    return render(request, 'my-rent.html')

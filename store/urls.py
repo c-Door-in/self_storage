@@ -8,4 +8,5 @@ urlpatterns = [
     path('my_rent/', views.my_rent, name='my_rent'),
     path('faq/', views.faq, name='faq'),
     path('logout/', views.log_out, name='log_out'),
+    path('<int:box_id>', views.send_qr, name='send_qr'),
 ]
