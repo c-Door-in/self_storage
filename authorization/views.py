@@ -7,6 +7,8 @@ from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
 from django.template.defaulttags import register
 
+from store.models import Customer
+
 
 @register.filter
 def get_item(dictionary, key):
@@ -41,6 +43,9 @@ def register(request):
             email=request.POST['email'],
             first_name=request.POST['first_name'],
             password=request.POST['password']
+        )
+        customer = Customer.objects.create(
+            user=user
         )
         login(request, user, backend='django.contrib.auth.backends.ModelBackend')
         return redirect('my_rent')
