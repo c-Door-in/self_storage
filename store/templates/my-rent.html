@@ -73,6 +73,7 @@
 						<h4>{{ box.rental_start_time|date:'d M Y' }} - {{ box.rental_end_time|date:'d M Y' }}</h4>
 						<div><a href="{% url 'payment:make_payment' box.id %}" class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_green SelfStorage__btn2_green mb-3">Продлить аренду</a></div>
 						<div><button class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_orange SelfStorage__btn2_orange mb-3">Открыть бокс</button></div>
+						<h5>{{ qr_sent }}</h5>
 						<a href="#" class="SelfStorage_orange">Нужна помощь?</a>
 					</div>
                     {% endfor %}
