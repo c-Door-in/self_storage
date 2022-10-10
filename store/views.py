@@ -36,7 +36,7 @@ def boxes(request):
     return render(request, 'boxes.html', context=context)
 
 
-@login_required
+@login_required(login_url='sign_in')
 def my_rent(request):
 
     username = request.user
@@ -95,12 +95,12 @@ def faq(request):
     return render(request, 'faq.html')
 
 
-@login_required
+@login_required(login_url='sign_in')
 def payment(request):
     return render(request, 'index.html')
 
 
-@login_required
+@login_required(login_url='sign_in')
 def log_out(request):
     logout(request)
     return redirect(index)
