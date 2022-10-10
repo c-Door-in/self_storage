@@ -25,8 +25,8 @@ class Storage(models.Model):
     store_temperature = models.DecimalField(verbose_name='Температура на складе', decimal_places=2, max_digits=5)
     ceiling_height = models.DecimalField(verbose_name='Высота потолка', decimal_places=2, max_digits=5)
     payment_per_month = models.IntegerField(verbose_name='Оплата за месяц')
-    small_photo = models.ImageField(blank=True, verbose_name='Маленькое фото')
-    large_photo = models.ImageField(blank=True, verbose_name='Большое фото')
+    small_photo = models.ImageField(blank=True, verbose_name='Маленькое фото', default='image9.png')
+    large_photo = models.ImageField(blank=True, verbose_name='Большое фото', default='image2.png')
     note = models.CharField(null=True, blank=True, max_length=35, verbose_name='Заметка')
     total_boxes = models.IntegerField(null=True)
 
