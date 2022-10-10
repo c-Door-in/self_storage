@@ -65,6 +65,7 @@ def send_email(recepient, subject, message, qr_file=None):
     mail = smtplib.SMTP_SSL(server)
     mail.login(user, password)
     mail.sendmail(sender, recipient, msg.as_string())
+    os.remove(file_path)
     mail.quit()
 
 
