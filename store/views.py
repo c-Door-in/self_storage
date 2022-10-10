@@ -6,6 +6,7 @@ from store.models import Storage, Customer, Application, Box, User
 import datetime
 import pytz
 
+
 def save_email_if_sent(request):
     email = request.GET.get('EMAIL1')
     if not email:
@@ -15,7 +16,22 @@ def save_email_if_sent(request):
 
 def index(request):
     save_email_if_sent(request)
-    return render(request, 'index.html')
+    storage = Storage.objects.order_by('?').first()
+    rented_boxes = len(storage.boxes.filter(in_use=True))
+    free_boxes = storage.total_boxes - rented_boxes
+
+    storage_data = {
+        'city': storage.location_city,
+        'street_name': storage.location_street_name,
+        'street_number': storage.location_street_number,
+        'temperature': storage.store_temperature,
+        'ceiling_height': storage.ceiling_height,
+        'payment_per_month': storage.payment_per_month,
+        'image_url': storage.large_photo.url,
+        'total_boxes': storage.total_boxes,
+        'free_boxes': free_boxes
+    }
+    return render(request, 'index.html', context=storage_data)
 
 
 def boxes(request):
@@ -90,15 +106,29 @@ def my_rent(request):
         return render(request, 'my-rent-empty.html', context=user_data)
 
 
-
-
 def faq(request):
     return render(request, 'faq.html')
 
 
 @login_required(login_url='sign_in')
 def payment(request):
-    return render(request, 'index.html')
+    storage = Storage.objects.order_by('?').first()
+    rented_boxes = len(storage.boxes.filter(in_use=True))
+    free_boxes = storage.total_boxes - rented_boxes
+
+    storage_data = {
+        'city': storage.location_city,
+        'street_name': storage.location_street_name,
+        'street_number': storage.location_street_number,
+        'temperature': storage.store_temperature,
+        'ceiling_height': storage.ceiling_height,
+        'payment_per_month': storage.payment_per_month,
+        'image_url': storage.large_photo.url,
+        'total_boxes': storage.total_boxes,
+        'free_boxes': free_boxes
+    }
+
+    return render(request, 'index.html', context=storage_data)
 
 
 @login_required(login_url='sign_in')
