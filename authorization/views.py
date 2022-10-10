@@ -9,6 +9,7 @@ from django.shortcuts import redirect, render
 from django.template.defaulttags import register
 from store.models import Customer
 from django.db.models import Q
+from email_sender.email_sender import send_email
 
 @register.filter
 def get_item(dictionary, key):
@@ -62,7 +63,22 @@ def password_reset(request):
             )
         except User.DoesNotExist:
             return render(request, 'password_reset.html', {'errors': {'email_or_username': 'Пользователь не найден'}})
+        new_password = User.objects.make_random_password()
         
+        send_email(
+            user.email,
+            'Восстановление пароля',
+            dedent(
+                f"""
+                Ваш новый пароль: {new_password}.
+
+                Для входа перейдите по адресу: {request.build_absolute_uri('/login/')}
+                """
+            )
+        )
+        user.set_password(new_password)
+        user.save(update_fields=['password'])
+        return redirect('sign_in')
     return render(request, 'password_reset.html')
 
 

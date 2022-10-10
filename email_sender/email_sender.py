@@ -45,17 +45,19 @@ def send_email(recepient, subject, message, qr_file=None):
     msg['Return-Path'] = sender
     msg['X-Mailer'] = 'Python/' + (python_version())
 
-    file_path = os.path.abspath(qr_file)
+    if qr_file:
+    
+        file_path = os.path.abspath(qr_file)
 
-    if os.path.exists(file_path):
-        basename = os.path.basename(file_path)
-        filesize = os.path.getsize(file_path)
-        part_file = MIMEBase('application', 'octet-stream; name="{}"'.format(basename))
-        part_file.set_payload(open(file_path, "rb").read())
-        part_file.add_header('Content-Description', basename)
-        part_file.add_header('Content-Disposition', 'attachment; filename="{}"; size={}'.format(basename, filesize))
-        encoders.encode_base64(part_file)
-        msg.attach(part_file)
+        if os.path.exists(file_path):
+            basename = os.path.basename(file_path)
+            filesize = os.path.getsize(file_path)
+            part_file = MIMEBase('application', 'octet-stream; name="{}"'.format(basename))
+            part_file.set_payload(open(file_path, "rb").read())
+            part_file.add_header('Content-Description', basename)
+            part_file.add_header('Content-Disposition', 'attachment; filename="{}"; size={}'.format(basename, filesize))
+            encoders.encode_base64(part_file)
+            msg.attach(part_file)
 
     part_text = MIMEText(text, 'plain')
     msg.attach(part_text)
