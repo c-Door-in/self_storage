@@ -5,3 +5,4 @@ django-allauth==0.51.0
 Pillow==9.2.0
 pytz==2022.4
 stripe==4.2.0
+qrcode==7.3.1
