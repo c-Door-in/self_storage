@@ -31,13 +31,13 @@
 								
 								<button type="submit" class="btn SelfStorage_green ps-1" id="save" style="display: none">Сохранить</button>
 								<a class="btn SelfStorage_orange ps-1" id="edit">Редактировать</a>
+								<a type="button" class="btn SelfStorage_orange ps-1" id="change_password" href="{% url 'change_password' %}">Сменить пароль</a>
 								<script>
 									document.getElementById('edit').addEventListener('click', e => {
 										e.preventDefault()
 										document.getElementById('EMAIL').disabled = false
 										document.getElementById('PHONE').disabled = false
-										document.getElementById('PASSWORD').disabled = false
-										document.getElementById('PASSWORD').type = 'text'
+										document.getElementById('change_password').style.display = 'none'
 										document.getElementById('edit').style.display = 'none'
 										document.getElementById('save').style.display = 'inline-block'
 									})
@@ -45,8 +45,7 @@
 										setTimeout(() => {
 											document.getElementById('EMAIL').disabled = true
 											document.getElementById('PHONE').disabled = true
-											document.getElementById('PASSWORD').disabled = true
-											document.getElementById('PASSWORD').type = 'password'
+											document.getElementById('change_password').style.display = 'inline-block'
 											document.getElementById('edit').style.display = 'inline-block'
 											document.getElementById('save').style.display = 'none'
 										}, 0)
