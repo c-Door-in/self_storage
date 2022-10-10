@@ -72,7 +72,7 @@ def my_rent(request):
         'username': user.username,
         'first_name': user.first_name,
         'last_name': user.last_name,
-        'image_url': customer.photo.url,
+        'image_url': customer.photo.url if customer.photo else 'static/no_foto.png',
         'password': user.password,
         'email': user.email,
         'phone_number': customer.phone_number,
